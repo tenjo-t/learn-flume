@@ -33,24 +33,18 @@ fun main() {
 
     val canvas = surface.canvas
 
-    val style = ParagraphStyle().apply {
-        textStyle = TextStyle().apply {
-            color = 0xFFFF0000.toInt()
-            fontSize = 30f
-        }
-    }
-    val font = FontCollection().apply {
-        setDefaultFontManager(FontMgr.default)
-    }
-    val builder = ParagraphBuilder(style,font)
-    builder.addText("Flumeフルーム古め, Hello Flume!!")
-    val paragraph = builder.build()
-
-
     while (!glfwWindowShouldClose(windowHandle)) {
 
-        paragraph.layout(300f)
-        paragraph.paint(canvas, 100f,100f)
+        val paintRed = Paint().apply { color = 0xFFFF0000.toInt() }
+        val paintGreen = Paint().apply { color = 0xFF00FF00.toInt() }
+
+        canvas.drawRect(Rect.makeXYWH(100f,100f,100f,100f), paintRed)
+
+        canvas.translate(200f,0f)
+
+        canvas.drawRect(Rect.makeXYWH(100f, 100f, 100f, 100f), paintGreen)
+
+        canvas.translate(-200f,0f)
 
         context.flush()
         glfwSwapBuffers(windowHandle)
