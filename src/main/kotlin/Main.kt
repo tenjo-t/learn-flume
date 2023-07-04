@@ -42,10 +42,20 @@ fun main() {
 
         canvas.drawRect(Rect.makeXYWH(100f, 100f, 100f, 100f), paintRed)
 
-        val paintOpacity = Paint().apply { alpha = 50 }
-        canvas.saveLayer(Rect.makeXYWH(0f, 0f, width.toFloat(), height.toFloat()), paintOpacity)
+        canvas.save()
 
-        canvas.drawRect(Rect.makeXYWH(300f, 100f, 100f, 100f), paintGreen)
+        canvas.translate(300f, 100f)
+
+        val path = Path().apply {
+            lineTo(0f, 100f - 30f)
+            quadTo(100f / 4, 100f, 100f / 2, 100f)
+            quadTo(100 - 100f / 4, 100f, 100f, 100 - 30f)
+            lineTo(100f, 0f)
+            closePath()
+        }
+
+        canvas.clipPath(path, antiAlias = true)
+        canvas.drawRect(Rect.makeXYWH(0f, 0f, 100f, 100f), paintGreen)
 
         canvas.restore()
 
