@@ -41,6 +41,8 @@ fun main() {
 
         canvas.drawRect(Rect.makeXYWH(100f, 100f, 100f, 100f), paintRed)
 
+        canvas.save()
+
         canvas.translate(200f, 0f)
 
         val rot = (30 * PI / 180).toFloat()
@@ -54,16 +56,7 @@ fun main() {
 
         canvas.drawRect(Rect.makeXYWH(100f, 100f, 100f, 100f), paintGreen)
 
-        canvas.concat(
-            Matrix33(
-                cos(-rot), -sin(-rot), 0f,
-                sin(-rot), cos(-rot), 0f,
-                0f, 0f, 1f
-
-            )
-        )
-
-        canvas.translate(-200f, 0f)
+        canvas.restore()
 
         context.flush()
         glfwSwapBuffers(windowHandle)
