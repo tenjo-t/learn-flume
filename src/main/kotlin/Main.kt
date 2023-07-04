@@ -1,4 +1,5 @@
 import org.jetbrains.skia.*
+import org.jetbrains.skia.paragraph.*
 import org.lwjgl.glfw.GLFW.*
 import org.lwjgl.opengl.GL
 import org.lwjgl.opengl.GL11
@@ -32,16 +33,24 @@ fun main() {
 
     val canvas = surface.canvas
 
+    val style = ParagraphStyle().apply {
+        textStyle = TextStyle().apply {
+            color = 0xFFFF0000.toInt()
+            fontSize = 30f
+        }
+    }
+    val font = FontCollection().apply {
+        setDefaultFontManager(FontMgr.default)
+    }
+    val builder = ParagraphBuilder(style,font)
+    builder.addText("Flumeフルーム古め, Hello Flume!!")
+    val paragraph = builder.build()
+
+
     while (!glfwWindowShouldClose(windowHandle)) {
 
-        val paintGreen = Paint().apply { color = 0xFF8BC34A.toInt() }
-        canvas.drawCircle(100f, 100f, 40f, paintGreen)
-
-        val paintYellow = Paint().apply { color = 0xFFFFEB3B.toInt() }
-        canvas.drawRect(Rect.makeXYWH(200f, 100f, 50f, 100f), paintYellow)
-
-        val paintRed = Paint().apply { color = 0xFFF44336.toInt() }
-        canvas.drawLine(300f, 100f, 400f, 200f, paintRed)
+        paragraph.layout(300f)
+        paragraph.paint(canvas, 100f,100f)
 
         context.flush()
         glfwSwapBuffers(windowHandle)
