@@ -38,10 +38,10 @@ fun main() {
         canvas.drawCircle(100f, 100f, 40f, paintGreen)
 
         val paintYellow = Paint().apply { color = 0xFFFFEB3B.toInt() }
-        canvas.drawCircle(200f, 100f, 40f, paintYellow)
+        canvas.drawRect(Rect.makeXYWH(200f, 100f, 50f, 100f), paintYellow)
 
         val paintRed = Paint().apply { color = 0xFFF44336.toInt() }
-        canvas.drawCircle(300f, 100f, 40f, paintRed)
+        canvas.drawLine(300f, 100f, 400f, 200f, paintRed)
 
         context.flush()
         glfwSwapBuffers(windowHandle)
