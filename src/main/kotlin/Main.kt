@@ -35,26 +35,17 @@ fun main() {
     val canvas = surface.canvas
 
     while (!glfwWindowShouldClose(windowHandle)) {
+        canvas.clear(0xFFFFFFFF.toInt())
 
         val paintRed = Paint().apply { color = 0xFFFF0000.toInt() }
         val paintGreen = Paint().apply { color = 0xFF00FF00.toInt() }
 
         canvas.drawRect(Rect.makeXYWH(100f, 100f, 100f, 100f), paintRed)
 
-        canvas.save()
+        val paintOpacity = Paint().apply { alpha = 50 }
+        canvas.saveLayer(Rect.makeXYWH(0f, 0f, width.toFloat(), height.toFloat()), paintOpacity)
 
-        canvas.translate(200f, 0f)
-
-        val rot = (30 * PI / 180).toFloat()
-        canvas.concat(
-            Matrix33(
-                cos(rot), -sin(rot), 0f,
-                sin(rot), cos(rot), 0f,
-                0f, 0f, 1f
-            )
-        )
-
-        canvas.drawRect(Rect.makeXYWH(100f, 100f, 100f, 100f), paintGreen)
+        canvas.drawRect(Rect.makeXYWH(300f, 100f, 100f, 100f), paintGreen)
 
         canvas.restore()
 
